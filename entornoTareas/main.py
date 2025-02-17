@@ -5,9 +5,9 @@ from typing import Optional
 
 # declaracion del objeto y la instaciamos de la clase FastAPI
 app = FastAPI(
-    title='Administrar Tareas',
-    description='Estrella Cuellar',
-    version='1.0.1'
+    title="Mi primer API 196",
+    description="Domingo Araujo Alvarez",
+    version="0.1"
 )
 
 #Creamos una lista para la base de datos 
