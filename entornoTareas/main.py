@@ -22,7 +22,7 @@ tareas=[
 # metodo principal
 def main():
     # retornamos en formato JSON un mensaje 
-    return {'Hola Api Tareas':'EstrellaCuellar'}
+    return {'Hola Api Tareas':'Domingo Araujo'}
 
 #endpoint para consultar todas las tareas
 @app.get('/tareas', tags=['Operaciones CRUD'])
