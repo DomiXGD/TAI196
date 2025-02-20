@@ -12,11 +12,13 @@ app = FastAPI(
 
 #Creamos una lista para la base de datos 
 tareas=[
-    {"id":1, "titulo":"Tarea 1", "descripción":"Realizar los ejercicios","fecha_vencimiento":"19-02-2025", "estado":"pendiente"},
-    {"id":2, "titulo":"Tarea 2", "descripción":"Realizar un ensayo","fecha_vencimiento":"18-02-2025", "estado":"pendiente"},
-    {"id":3, "titulo":"Tarea 3", "descripción":"Realizar un programa","fecha_vencimiento":"17-02-2025", "estado":"pendiente"},
-    {"id":4, "titulo":"Tarea 4", "descripción":"Realizar una investigación","fecha_vencimiento":"20-02-2025", "estado":"pendiente"},
+    {"id":1, "nombre":"Tarea 1", "descripcion":"Descripcion de la tarea 1", "estado":"Pendiente"},
+    {"id":2, "nombre":"Tarea 2", "descripcion":"Descripcion de la tarea 2", "estado":"Activo"},
+    {"id":3, "nombre":"Tarea 3", "descripcion":"Descripcion de la tarea 3", "estado":"Pendiente"},
+    {"id":4, "nombre":"Tarea 4", "descripcion":"Descripcion de la tarea 4", "estado":"Completada"},
+    {"id":5, "nombre":"Tarea 5", "descripcion":"Descripcion de la tarea 5", "estado":"Activo"}
 ]
+
 
 @app.get('/', tags=['Inicio'])
 # metodo principal
@@ -24,27 +26,45 @@ def main():
     # retornamos en formato JSON un mensaje 
     return {'Hola Api Tareas':'Domingo Araujo'}
 
-#endpoint para consultar todas las tareas
-@app.get('/tareas', tags=['Operaciones CRUD'])
-def ConsultarTareas():
-    return {'Tareas Registradas': tareas}
+#Consultar Tareas
+@app.get('/tareas', tags=['Tareas'])
+def consultar_tareas():
+    return tareas
 
-#endpont para consultar una tarea por id
-@app.get('/tareas/{id}', tags=['Operaciones CRUD'])
-def ConsultarTarea(id:int):
-    for tar in tareas:
-        if tar["id"] == id:
-            return tar
-    raise HTTPException(status_code=400, detail='Tarea no encontrada')
+#Consultar una tarea por su ID.
+@app.get('/tareas/{id}', tags=['Tareas'])
+def consultar_tarea(id: int):
+    for t in tareas:
+        if t['id'] == id:
+            return t
+    raise HTTPException(status_code=404, detail="Tarea no encontrada") 
 
-#endpont para agregar tareas, la diagonal indica que es un parametro
-@app.post('/tareas/', tags=['Operaciones CRUD'])
-#definimos los parametros que recibira el metodo en este caso sera una lista de diccionarios
-def AgregarTarea(tarea:dict):
-    for tar in tareas:
-        if tar["id"] == tarea.get("id"):
-            # el raise nos permite lanzar una excepcion
-            raise HTTPException(status_code=400, detail='El id ya esta registrado')
-    
+
+#Agregar una nueva tarea.
+@app.post('/tareas', tags=['Tareas'])
+def agregar_tarea(tarea: dict):
+    tarea['id'] = len(tareas) + 1
     tareas.append(tarea)
     return tarea
+<<<<<<< Updated upstream
+=======
+
+#Actualizar una tarea existente.
+@app.put('/tareas/{id}', tags=['Tareas'])
+def actualizar_tarea(id: int, tarea: dict):
+    for t in tareas:
+        if t['id'] == id:
+            t.update(tarea)
+            return t
+    raise HTTPException(status_code=404, detail="Tarea no encontrada")
+
+#Eliminar una tarea.
+@app.delete('/tareas/{id}', tags=['Tareas'])
+def eliminar_tarea(id: int):
+    for t in tareas:
+        if t['id'] == id:
+            tareas.remove(t)
+            return {"message": "Tarea eliminada correctamente"}
+    raise HTTPException(status_code=404, detail="Tarea no encontrada")
+
+>>>>>>> Stashed changes
