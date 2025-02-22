@@ -46,8 +46,6 @@ def agregar_tarea(tarea: dict):
     tarea['id'] = len(tareas) + 1
     tareas.append(tarea)
     return tarea
-<<<<<<< Updated upstream
-=======
 
 #Actualizar una tarea existente.
 @app.put('/tareas/{id}', tags=['Tareas'])
@@ -67,4 +65,3 @@ def eliminar_tarea(id: int):
             return {"message": "Tarea eliminada correctamente"}
     raise HTTPException(status_code=404, detail="Tarea no encontrada")
 
->>>>>>> Stashed changes
