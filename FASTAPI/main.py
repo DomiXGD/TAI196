@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from typing import Optional, List
-from pydantic import BaseModel
+from modelsPydantic import modelUsuario
+
 
 app = FastAPI(
     title="Mi primer API 196",
@@ -14,13 +15,6 @@ usuarios = [
     {"id": 3, "nombre": "Lucero Cuellar", "edad": 20, "correo": "lucerocuellar@gmail.com"},
     {"id": 4, "nombre": "Domingo Ar aujo", "edad": 20, "correo": "domingoaraujo@gmail.com"},
 ]
-
-#modelo para validación de datos
-class modelUsuario(BaseModel):
-    id: int
-    nombre: str
-    edad: int
-    correo: str
 
 @app.get("/", tags=["Inicio"])
 def main():
